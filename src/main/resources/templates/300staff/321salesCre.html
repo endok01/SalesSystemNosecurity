@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="~{commons/layout :: layout(~{::body})}">
+<head>
+</head>
+<body>
+<div class="box" id="content">
+<h3>売上登録</h3>
+ 	<span th:text="${errormessage}" th:class="error"></span>
+  	<form th:action="@{/Staff/salesCreConf}" th:object="${salesForm}" method="post">
+ 		<table>
+ 			<tr>
+	 			<th>顧客</th>
+	 			<td>
+	 				<select th:field="*{mtCustomer.customerCode}" size="1" autofocus="autofocus">
+	 					<option th:each="c : ${customerList}" 
+	 						th:value="${c.customerCode}" 
+	 						th:text="${c.customerName}" />
+	 				</select>
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<th>売上日</th>
+	 			<td><input type="date" name="salesDateString" th:field="*{salesDateString}" placeholder="必須入力"/></td>
+	 			<td><span th:errors="*{salesDateString}" th:class="error"></span></td>
+	 		</tr>
+ 		</table>
+ 		<br>
+ 		<table>
+	 		<tr class="hd2">
+	 			<th>商品名</th>
+	 			<th>仕様</th>
+	 			<th>単価</th>
+	 			<th>数量</th>
+	 		</tr>
+	 		<tr th:each="s, status : *{salesItemForm}" class="row">
+	 			<td th:text="${s.itemName}">
+	 			</td>
+	 			<td th:text="${s.spec}"></td>
+	 			<td th:text="${#numbers.formatInteger(s.price, 1, 'COMMA')}" class="c0"></td>
+	 			<td>
+	 				<input type="number" min="0" max="99" th:field="*{salesItemForm[__${status.index}__].quantity}" name="quantity">
+	 				<input type="hidden" th:field="*{salesItemForm[__${status.index}__].detailId}" name="detailId" />
+	 				<input type="hidden" th:field="*{salesItemForm[__${status.index}__].itemCode}" name="itemCode" />
+	 				<input type="hidden" th:field="*{salesItemForm[__${status.index}__].itemName}" name="itemName" />
+	 				<input type="hidden" th:field="*{salesItemForm[__${status.index}__].price}" name="price" />
+	 				<input type="hidden" th:field="*{salesItemForm[__${status.index}__].spec}" name="spec" />
+	 			</td>
+	 		</tr>
+		</table>
+ 		<button type="submit" class="menuBtn">売上登録確認</button>
+ 	</form>
+</div>
+</body>
+</html>
