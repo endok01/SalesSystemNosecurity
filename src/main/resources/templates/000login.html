@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>売上管理システム</title>
 	<meta charset="UTF-8">
@@ -10,7 +9,7 @@
 	<div th:include="commons/header :: frag_header"></div>
 	<div class="box">
 	<h2>ログイン認証</h2>
-	<form th:action="@{/login}" method="post">
+	<form th:action="@{/index}" method="get">
 		<div th:if="${iserror}" th:class="error">ログインできませんでした。やり直してください。</div>
 		<table>
 			<tr>
