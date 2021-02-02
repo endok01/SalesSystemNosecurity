@@ -1,7 +1,5 @@
 package com.pci.controller;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,10 +42,10 @@ public class LoginController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/index",method=RequestMethod.GET)
+	@RequestMapping(value = "/index", method=RequestMethod.GET)
 	public ModelAndView index(
-			@RequestParam(name="username") String username,
-			@RequestParam(name="password") String password,
+			@RequestParam String username,
+			@RequestParam String password,
 			ModelAndView mav) {
 		mav.addObject("iserror", false);
 
